@@ -1,3 +1,6 @@
+var express = require('express');
+var app = express();
+
 var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -12,9 +15,6 @@ var getRandomElementFromArray = function (items) {
   return { name: items[index], index: index };
 };
 
-// Load the http module to create an http server.
-var http = require('http');
-
 var baguetteTypes = ['Omolete', 'Atum', 'Frango', 'Delícias do mar',
                      'Salsicha', 'Salsicha com queijo', 'Lombo',
                      'Mista', 'Presunto', 'Queijo'];
@@ -23,7 +23,7 @@ var baguetteExtras = ['Ketchup', 'Alface', 'Milho', 'Tomate', 'Maionese',
                       'Cenoura', 'Cebola', 'Pepino', 'Mostarda', 'Ovo'];
 
 // Configure our HTTP server to respond with Hello World to all requests.
-var server = http.createServer(function (request, response) {
+app.get('/', function(request, response) {
   response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
 
   var baguetteExtrasCopy = baguetteExtras.slice(0);
@@ -44,5 +44,7 @@ var server = http.createServer(function (request, response) {
   response.end(JSON.stringify( { type: type , extras: extras} ));
 });
 
-server.listen(8000);
-console.log("Server running at localhost:8000");
+var port = Number(process.env.PORT || 3000);
+var server = app.listen(port, function() {
+  console.log('Listening on port ' + port);
+});

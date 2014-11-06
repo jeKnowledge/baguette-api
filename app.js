@@ -26,8 +26,19 @@ var baguetteExtras = ['Ketchup', 'Alface', 'Milho', 'Tomate', 'Maionese',
 
 app.get('/', function (req, res) {
   request('http://randombaguette.herokuapp.com/api', function (error, response, body) {
-    console.log(body);
-    res.end(body);
+    var baguette = JSON.parse(body);
+
+    res.write("<p>Tipo: ");
+    res.write(baguette.type);
+    res.write("</p>");
+
+    res.write("<ul>");
+
+    for (var i = 0; i < baguette.extras.length; i++) {
+      res.write("<li>" + baguette.extras[i] + "</li>");
+    }
+
+    res.write("</ul>");
   });
 });
 

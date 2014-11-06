@@ -28,17 +28,19 @@ app.get('/', function (req, res) {
   request('http://randombaguette.herokuapp.com/api', function (error, response, body) {
     var baguette = JSON.parse(body);
 
-    res.write("<p>Tipo: ");
+    res.setEncoding('utf8');
+    
+    res.write('<p>Tipo: ');
     res.write(baguette.type);
-    res.write("</p>");
+    res.write('</p>');
 
-    res.write("<ul>");
+    res.write('<ul>');
 
     for (var i = 0; i < baguette.extras.length; i++) {
-      res.write("<li>" + baguette.extras[i] + "</li>");
+      res.write('<li>' + baguette.extras[i] + '</li>');
     }
 
-    res.write("</ul>");
+    res.write('</ul>');
 
     res.end();
   });

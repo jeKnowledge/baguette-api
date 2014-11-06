@@ -39,6 +39,8 @@ app.get('/', function (req, res) {
     }
 
     res.write("</ul>");
+
+    res.end();
   });
 });
 

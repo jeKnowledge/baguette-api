@@ -1,5 +1,7 @@
 var express = require('express');
+var fs = require('fs');
 var app = express();
+var request = require('request');
 
 var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -22,9 +24,15 @@ var baguetteTypes = ['Omolete', 'Atum', 'Frango', 'Delícias do mar',
 var baguetteExtras = ['Ketchup', 'Alface', 'Milho', 'Tomate', 'Maionese',
                       'Cenoura', 'Cebola', 'Pepino', 'Mostarda', 'Ovo'];
 
-// Configure our HTTP server to respond with Hello World to all requests.
-app.get('/', function(request, response) {
-  response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+app.get('/', function (req, res) {
+  request('http://randombaguette.herokuapp.com/api', function (error, response, body) {
+    console.log(body);
+    res.end(body);
+  });
+});
+
+app.get('/api', function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
 
   var baguetteExtrasCopy = baguetteExtras.slice(0);
   var type = getRandomElementFromArray(baguetteTypes).name;
@@ -41,10 +49,11 @@ app.get('/', function(request, response) {
     extras.push(newExtra.name);
   }
 
-  response.end(JSON.stringify( { type: type , extras: extras} ));
+  res.end(JSON.stringify( { type: type , extras: extras} ));
 });
 
 var port = Number(process.env.PORT || 3000);
-var server = app.listen(port, function() {
+
+var server = app.listen(port, function () {
   console.log('Listening on port ' + port);
 });

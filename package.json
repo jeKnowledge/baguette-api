@@ -4,7 +4,8 @@
   "description": "Random Baguette Generator",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.10.1"
+    "express": "^4.10.1",
+    "request": "^2.47.0"
   },
   "engines": {
     "node": "0.10.x"

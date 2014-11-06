@@ -1,0 +1,12 @@
+{
+  "name": "baguette-api",
+  "version": "0.0.1",
+  "description": "Random Baguette Generator",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.10.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

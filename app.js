@@ -28,8 +28,9 @@ app.get('/', function (req, res) {
   request('http://randombaguette.herokuapp.com/api', function (error, response, body) {
     var baguette = JSON.parse(body);
 
-    res.setEncoding('utf8');
-    
+    res.write('<head><meta charset="UTF-8"></head>');
+
+    res.write('<body>');
     res.write('<p>Tipo: ');
     res.write(baguette.type);
     res.write('</p>');
@@ -41,6 +42,7 @@ app.get('/', function (req, res) {
     }
 
     res.write('</ul>');
+    res.write('</body>');
 
     res.end();
   });
